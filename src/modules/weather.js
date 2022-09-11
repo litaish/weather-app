@@ -19,11 +19,16 @@ function displayData(data) {
 }
 
 async function fetchWeather(ev) {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${ev.target.value}&units=metric&appid=${process.env.WEATHER_API_KEY}`
-  );
-  const data = await response.json();
-  displayData(data);
+  let data = {};
+  try {
+    let response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${ev.target.value}&units=metric&appid=${process.env.WEATHER_API_KEY}`
+    );
+    data = await response.json();
+    displayData(data);
+  } catch (err) {
+    alert("Please make sure you have entered a location correctly!");
+  }
 }
 
 export { fetchWeather };
